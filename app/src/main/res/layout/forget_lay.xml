@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:ignore="MissingConstraints">
+
+        <EditText
+                android:id="@+id/forget_username"
+                android:hint="@string/forget_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:layout_marginTop="-30dp">
+        </EditText>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/holo_blue_dark"
+                android:layout_marginTop="70dp">
+        </View>
+        <TextView
+                android:id="@+id/search_password"
+                android:text="@string/search_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginTop="80dp"
+                android:background="#0000">
+        </TextView>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/holo_blue_dark"
+                android:layout_marginTop="120dp">
+        </View>
+        <TextView
+                android:id="@+id/show_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:layout_marginTop="120dp"
+                android:background="#0000">
+        </TextView>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
