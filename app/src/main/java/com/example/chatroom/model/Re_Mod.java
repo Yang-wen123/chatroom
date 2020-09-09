@@ -33,7 +33,7 @@ public class Re_Mod implements Re_Mod_Inter {
                             dis = new DataInputStream(socket.getInputStream());
                             dos = new DataOutputStream(socket.getOutputStream());
                             //向服务器写数据
-                            dos.writeUTF(userBean.getUsername()+","+userBean.getNickname()+","+userBean.getPassword());
+                            dos.writeUTF(userBean.getNickname()+","+userBean.getUsername()+","+userBean.getPassword());
                             String temp = dis.readUTF();
                             Looper.prepare();
                             registerView.succeed(temp);
@@ -52,9 +52,7 @@ public class Re_Mod implements Re_Mod_Inter {
                                 e.printStackTrace();
                             }
                         }
-                        Message message = new Message();
-                        message.what = 1;
-                        handler.sendMessage(message);
+
                     }
                 }).start();
             }else if(pass!=null&&ensure!=null&&!pass.equals(ensure)){
@@ -65,12 +63,5 @@ public class Re_Mod implements Re_Mod_Inter {
         }
 
     }
-    @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            //响应布局内容
 
-        }
-    };
 }

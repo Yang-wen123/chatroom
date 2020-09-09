@@ -1,8 +1,12 @@
 package com.example.chatroom;
 
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.chatroom.utils.ConstantUtil;
 import com.example.chatroom.view.ChatActivity;
 import com.example.chatroom.view.ForgetActivity;
 import com.example.chatroom.view.RegisterActivity;
@@ -10,6 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private TextView username,password,forget,register;
@@ -69,7 +78,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login:
-                IntentActivity(this, ChatActivity.class);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DataInputStream dis = null;
+                        DataOutputStream dos = null;
+                        try {
+                            //阻塞函数，正常连接后才会向下继续执行
+                            Socket socket = new Socket(ConstantUtil.ADDRESS, ConstantUtil.PORT);
+                            dis = new DataInputStream(socket.getInputStream());
+                            dos = new DataOutputStream(socket.getOutputStream());
+                            //向服务器写数据
+                            dos.writeUTF(username.getText().toString());
+                            if(dis.readUTF().equals("200")){
+                                IntentActivity(MainActivity.this, ChatActivity.class);
+                            }else {
+                                Looper.prepare();
+                                showToast(dis.readUTF());
+                                Looper.loop();
+                            }
+                        } catch (IOException e) {
+                            Log.e("Himi", "Stream error!");
+                            e.printStackTrace();
+                        } finally {
+                            try {
+                                if (dis != null)
+                                    dis.close();
+                                if (dos != null)
+                                    dos.close();
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).start();
+
                 break;
             case R.id.register:
                 IntentActivity(this, RegisterActivity.class);

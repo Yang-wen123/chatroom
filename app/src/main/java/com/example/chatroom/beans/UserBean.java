@@ -5,11 +5,13 @@ public class UserBean {
     private String password;
     private String nickname;
     private String ensure;
-    private static UserBean userBean = new UserBean();
-    public static UserBean getInstance(){
-        return userBean;
+    private String msg;
+    public UserBean() {
     }
-
+    public UserBean(String nickname, String msg) {
+        this.nickname = nickname;
+        this.msg = msg;
+    }
     public void setUsername(String username){
         this.username = username;
     }
@@ -35,5 +37,10 @@ public class UserBean {
     public String getEnsure(){
         return ensure;
     }
-
+    public void setMsg(String msg){
+        this.msg = msg;
+    }
+    public String getMsg(){
+        return msg;
+    }
 }

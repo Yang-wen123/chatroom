@@ -42,11 +42,12 @@ public class RegisterActivity extends BaseActivity implements RegisterView, View
 
     @Override
     public void register(String nickname,String username,String password,String ensure) {
-        UserBean.getInstance().setNickname(nickname);
-        UserBean.getInstance().setUsername(username);
-        UserBean.getInstance().setPassword(password);
-        UserBean.getInstance().setEnsure(ensure);
-        new RegisterPre().register(UserBean.getInstance(),this);
+        UserBean userBean = new UserBean();
+        userBean.setNickname(nickname);
+        userBean.setUsername(username);
+        userBean.setPassword(password);
+        userBean.setEnsure(ensure);
+        new RegisterPre().register(userBean,this);
     }
 
     @Override
