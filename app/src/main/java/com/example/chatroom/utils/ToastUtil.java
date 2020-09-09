@@ -1,4 +1,4 @@
-package com.example.chatroom.Utils;
+package com.example.chatroom.utils;
 
 import android.content.Context;
 import android.widget.Toast;

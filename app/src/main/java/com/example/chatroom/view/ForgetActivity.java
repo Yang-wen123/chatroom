@@ -1,14 +1,14 @@
-package com.example.chatroom.View;
+package com.example.chatroom.view;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.example.chatroom.BaseActivity;
 import com.example.chatroom.R;
 
-public class ChatActivity extends BaseActivity {
-    private EditText send_msg;
-    private Button send;
+public class ForgetActivity extends BaseActivity {
+    private TextView search;
+    private EditText username;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +21,12 @@ public class ChatActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        send = findViewById(R.id.send);
-        send_msg = findViewById(R.id.send_msg);
+        username = findViewById(R.id.forget_username);
+        search = findViewById(R.id.search_password);
     }
 
     @Override
     protected int getContentViewId() {
-        return R.layout.chat_lay;
+        return R.layout.forget_lay;
     }
 }

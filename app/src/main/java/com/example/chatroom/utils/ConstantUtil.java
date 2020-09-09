@@ -1,4 +1,4 @@
-package com.example.chatroom.Utils;
+package com.example.chatroom.utils;
 
 public class ConstantUtil {
     public static final String ADDRESS = "10.43.207.169";

@@ -1,4 +1,4 @@
-package com.example.chatroom.View;
+package com.example.chatroom.view;
 
 public interface RegisterView {
     void register(String nickname,String username,String password,String ensure);

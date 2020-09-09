@@ -1,12 +1,12 @@
-package com.example.chatroom.View;
+package com.example.chatroom.view;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.chatroom.BaseActivity;
-import com.example.chatroom.Beans.UserBean;
-import com.example.chatroom.Presenter.RegisterPre;
+import com.example.chatroom.beans.UserBean;
+import com.example.chatroom.presenter.RegisterPre;
 import com.example.chatroom.R;
 
 

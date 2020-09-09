@@ -1,8 +1,8 @@
-package com.example.chatroom.Presenter;
+package com.example.chatroom.presenter;
 
-import com.example.chatroom.Beans.UserBean;
-import com.example.chatroom.Model.Re_Mod;
-import com.example.chatroom.View.RegisterView;
+import com.example.chatroom.beans.UserBean;
+import com.example.chatroom.model.Re_Mod;
+import com.example.chatroom.view.RegisterView;
 
 public class RegisterPre implements RegisterInter {
 

@@ -1,16 +1,13 @@
-package com.example.chatroom.Model;
+package com.example.chatroom.model;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import com.example.chatroom.Beans.UserBean;
-import com.example.chatroom.Utils.ConstantUtil;
-import com.example.chatroom.View.ForgetActivity;
-import com.example.chatroom.View.RegisterActivity;
-import com.example.chatroom.View.RegisterView;
+import com.example.chatroom.beans.UserBean;
+import com.example.chatroom.utils.ConstantUtil;
+import com.example.chatroom.view.RegisterView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

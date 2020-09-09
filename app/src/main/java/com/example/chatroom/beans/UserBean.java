@@ -1,4 +1,4 @@
-package com.example.chatroom.Beans;
+package com.example.chatroom.beans;
 
 public class UserBean {
     private String username;

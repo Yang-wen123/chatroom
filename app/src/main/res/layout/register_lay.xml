@@ -46,7 +46,7 @@
             app:layout_constraintVertical_bias="0.3">
 
     </EditText>
-    <com.example.chatroom.Utils.PasswordToggleEditText
+    <com.example.chatroom.utils.PasswordToggleEditText
             android:id="@+id/registration_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,8 +58,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.4">
-    </com.example.chatroom.Utils.PasswordToggleEditText>
-    <com.example.chatroom.Utils.PasswordToggleEditText
+    </com.example.chatroom.utils.PasswordToggleEditText>
+    <com.example.chatroom.utils.PasswordToggleEditText
             android:id="@+id/registration_ensure"
             android:layout_width="match_parent"
             android:hint="@string/registration_ensure"
@@ -71,7 +71,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintVertical_bias="0.5"
             android:layout_height="wrap_content">
-    </com.example.chatroom.Utils.PasswordToggleEditText>
+    </com.example.chatroom.utils.PasswordToggleEditText>
 
     <Button
             android:id="@+id/register_finish"
