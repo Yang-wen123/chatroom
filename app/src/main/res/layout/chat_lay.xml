@@ -29,7 +29,7 @@
         <EditText
                 android:id="@+id/send_msg"
                 android:background="@drawable/back"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="match_parent">
         </EditText>
         <Button

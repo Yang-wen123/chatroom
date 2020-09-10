@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.chatroom.beans.UserBean;
 import com.example.chatroom.utils.ConstantUtil;
 import com.example.chatroom.view.ChatActivity;
 import com.example.chatroom.view.ForgetActivity;
@@ -78,6 +79,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login:
+                showToast("登陆中");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -89,8 +91,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             dis = new DataInputStream(socket.getInputStream());
                             dos = new DataOutputStream(socket.getOutputStream());
                             //向服务器写数据
-                            dos.writeUTF(username.getText().toString());
+                            dos.writeUTF(username.getText().toString()+","+password.getText().toString());
                             if(dis.readUTF().equals("200")){
+                                UserBean.getInstance().setUsername(username.getText().toString());
                                 IntentActivity(MainActivity.this, ChatActivity.class);
                             }else {
                                 Looper.prepare();

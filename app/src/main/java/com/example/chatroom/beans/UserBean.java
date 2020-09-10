@@ -6,11 +6,16 @@ public class UserBean {
     private String nickname;
     private String ensure;
     private String msg;
-    public UserBean() {
+    public UserBean(){
+
     }
-    public UserBean(String nickname, String msg) {
-        this.nickname = nickname;
+    public UserBean(String username,String msg){
+        this.username = username;
         this.msg = msg;
+    }
+    private static UserBean userBean = new UserBean();
+    public static UserBean getInstance(){
+        return userBean;
     }
     public void setUsername(String username){
         this.username = username;
