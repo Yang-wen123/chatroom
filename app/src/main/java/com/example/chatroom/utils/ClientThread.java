@@ -4,43 +4,35 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 public class ClientThread implements Runnable {
     private Socket socket = null;
-
     private Handler sendHandler;
-
     public Handler receiveHandler;
-
     BufferedReader bufferedReader = null;
-
     BufferedOutputStream bufferedOutputStream = null;
-
+    DataInputStream dis = null;
+    DataOutputStream dos = null;
     public ClientThread(Handler handler) {
         this.sendHandler = handler;
     }
-
 
     @Override
     public void run() {
         try {
             socket = new Socket(ConstantUtil.ADDRESS, 10000);
-            bufferedReader = new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
-            bufferedOutputStream = new BufferedOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String content = null;
+                    String content;
                     try {
-                        while ((content = bufferedReader.readLine()) != null) {
+                        while ((content = dis.readUTF()) != null) {
                             Message message = new Message();
                             message.what = 0x123;
                             message.obj = content;
@@ -57,7 +49,7 @@ public class ClientThread implements Runnable {
                 public void handleMessage(Message message) {
                     if (message.what == 0x345) {
                         try {
-                            bufferedOutputStream.write((message.obj.toString() + "\r\n").getBytes("utf-8"));
+                            dos.writeUTF(message.obj.toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

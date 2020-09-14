@@ -25,8 +25,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(view);
             receive_layout = (LinearLayout) itemView.findViewById(R.id.receive_layout);
             send_layout = (LinearLayout) itemView.findViewById(R.id.send_layout);
-            //receive_user = (TextView) itemView.findViewById(R.id.receive_user);
-            //send_user = (TextView) itemView.findViewById(R.id.send_user);
+            receive_user = (TextView) itemView.findViewById(R.id.receive_user);
+            send_user = (TextView) itemView.findViewById(R.id.send_user);
             receive_msg = (TextView) itemView.findViewById(R.id.receive_msg);
             send_msg = (TextView) itemView.findViewById(R.id.send_msg);
         }
@@ -52,12 +52,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             viewHolder.receive_layout.setVisibility(View.VISIBLE);
             viewHolder.send_layout.setVisibility(View.GONE);
             viewHolder.receive_msg.setText(msg.getContent());
-            //viewHolder.receive_user.setText(msg.getUsername());
+            viewHolder.receive_user.setText(msg.getNickname());
         } else if (msg.getType() == ConstantUtil.TYPE_SEND) {
             viewHolder.send_layout.setVisibility(View.VISIBLE);
             viewHolder.receive_layout.setVisibility(View.GONE);
             viewHolder.send_msg.setText(msg.getContent());
-            //viewHolder.send_user.setText(msg.getUsername());
+            viewHolder.send_user.setText(msg.getNickname());
         }
     }
 

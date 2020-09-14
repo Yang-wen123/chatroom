@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.chatroom.adapter.Msg;
 import com.example.chatroom.beans.UserBean;
 import com.example.chatroom.utils.ConstantUtil;
 import com.example.chatroom.view.ChatActivity;
@@ -92,8 +93,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             dos = new DataOutputStream(socket.getOutputStream());
                             //向服务器写数据
                             dos.writeUTF(username.getText().toString()+","+password.getText().toString());
-                            if(dis.readUTF().equals("200")){
+                            String[] res = dis.readUTF().split(",");
+                            if(res[0].equals("200")){
                                 UserBean.getInstance().setUsername(username.getText().toString());
+                                UserBean.getInstance().setNickname(res[1]);
                                 IntentActivity(MainActivity.this, ChatActivity.class);
                             }else {
                                 Looper.prepare();

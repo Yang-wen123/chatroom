@@ -18,12 +18,7 @@ import com.example.chatroom.adapter.Msg;
 import com.example.chatroom.adapter.MyAdapter;
 import com.example.chatroom.beans.UserBean;
 import com.example.chatroom.utils.ClientThread;
-import com.example.chatroom.utils.ConstantUtil;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +62,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void handleMessage(Message msg) {
                 if (msg.what == 0x123) {
-                    Msg msg1 = new Msg(msg.obj.toString(), Msg.TYPE_RECEIVED);
+                    String[] mss = msg.obj.toString().split(",");
+                    Msg msg1 = new Msg(mss[0],mss[1], Msg.TYPE_RECEIVED);
                     msgList.add(msg1);
                     adapter.notifyItemInserted(msgList.size() - 1);
                     recyclerView.scrollToPosition(msgList.size() - 1);
@@ -88,11 +84,11 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
             case R.id.send:
                 String s = send_msg.getText().toString();
                 if (!s.equals("") && s != null) {
-                    Msg msg = new Msg(s, Msg.TYPE_SEND);
+                    Msg msg = new Msg(UserBean.getInstance().getNickname(),s, Msg.TYPE_SEND);
                     msgList.add(msg);
                     Message message = new Message();
                     message.what = 0x345;
-                    message.obj = s;
+                    message.obj = UserBean.getInstance().getNickname()+","+s;
                     clientThread.receiveHandler.sendMessage(message);
                     adapter.notifyItemInserted(msgList.size() - 1);
                     recyclerView.scrollToPosition(msgList.size() - 1);
@@ -101,35 +97,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-    private static boolean isExit = false;
 
-    Handler mHandler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            isExit = false;
-        }
-    };
-
-    private void exit() {
-        if (!isExit) {
-            isExit = true;
-            showToast( "再按一次退出程序");
-            // 利用handler延迟发送更改状态信息
-            mHandler.sendEmptyMessageDelayed(0, 2000);
-        } else {
-            finish();
-            System.exit(0);
-        }
-    }
 
 }
