@@ -3,8 +3,7 @@ package com.example.chatroom.beans;
 public class UserBean {
     private String username;
     private String password;
-    private String nickname;
-    private String ensure;
+
     private String msg;
     public UserBean(){
 
@@ -30,18 +29,6 @@ public class UserBean {
         return password;
     }
 
-    public void setNickname(String nickname){
-        this.nickname = nickname;
-    }
-    public String getNickname(){
-        return nickname;
-    }
-    public void setEnsure(String ensure){
-        this.ensure = ensure;
-    }
-    public String getEnsure(){
-        return ensure;
-    }
     public void setMsg(String msg){
         this.msg = msg;
     }

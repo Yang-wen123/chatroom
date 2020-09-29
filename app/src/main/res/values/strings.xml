@@ -1,22 +1,22 @@
 <resources>
-    <string name="app_name">专用</string>
-    <string name="action_settings">退出</string>
-    <string name="username">用户名</string>
-    <string name="password">密码</string>
-    <string name="login">登录</string>
-    <string name="register">注册</string>
+    <string name="app_name">快乐就完事了</string>
+    <string name="action_settings">exit</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">chat</string>
+    <string name="register">register</string>
 
     <!--   注册用 -->
     <string name="registration">注册用户</string>
     <string name="registration_nickname">请输入昵称</string>
-    <string name="registration_username">请输入用户名</string>
-    <string name="registration_password">请输入密码</string>
+    <string name="registration_username">username</string>
+    <string name="registration_password">password</string>
     <string name="registration_ensure">请确认密码</string>
     <string name="finish">完成注册</string>
     <!--登录用-->
-    <string name="please_account">请输入账号</string>
-    <string name="please_password">请输入密码</string>
-    <string name="enter">登录</string>
+    <string name="please_account">username</string>
+    <string name="please_password">password</string>
+    <string name="enter">enter</string>
     <!--忘记密码-->
     <string name="forget">忘记密码</string>
     <string name="forget_username">请输入账户名</string>

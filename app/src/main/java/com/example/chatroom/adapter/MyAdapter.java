@@ -1,5 +1,6 @@
 package com.example.chatroom.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ViewHolder (View view)
         {
             super(view);
-            receive_layout = (LinearLayout) itemView.findViewById(R.id.receive_layout);
-            send_layout = (LinearLayout) itemView.findViewById(R.id.send_layout);
-            receive_user = (TextView) itemView.findViewById(R.id.receive_user);
-            send_user = (TextView) itemView.findViewById(R.id.send_user);
-            receive_msg = (TextView) itemView.findViewById(R.id.receive_msg);
-            send_msg = (TextView) itemView.findViewById(R.id.send_msg);
+            receive_layout = itemView.findViewById(R.id.receive_layout);
+            send_layout = itemView.findViewById(R.id.send_layout);
+            receive_user = itemView.findViewById(R.id.receive_user);
+            send_user = itemView.findViewById(R.id.send_user);
+            receive_msg = itemView.findViewById(R.id.receive_msg);
+            send_msg = itemView.findViewById(R.id.send_msg);
         }
 
     }
@@ -52,12 +53,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             viewHolder.receive_layout.setVisibility(View.VISIBLE);
             viewHolder.send_layout.setVisibility(View.GONE);
             viewHolder.receive_msg.setText(msg.getContent());
-            viewHolder.receive_user.setText(msg.getNickname());
+            Log.d("width", "onBindViewHolder: "+viewHolder.receive_msg.getText().length());
+            if(viewHolder.receive_msg.getText().length()>20){
+                viewHolder.receive_msg.setWidth(450);
+            }
+            viewHolder.receive_user.setText(msg.getUsername());
         } else if (msg.getType() == ConstantUtil.TYPE_SEND) {
             viewHolder.send_layout.setVisibility(View.VISIBLE);
             viewHolder.receive_layout.setVisibility(View.GONE);
             viewHolder.send_msg.setText(msg.getContent());
-            viewHolder.send_user.setText(msg.getNickname());
+            Log.d("width", "onBindViewHolder: "+viewHolder.send_msg.getText().length());
+            if(viewHolder.send_msg.getText().length()>20){
+                viewHolder.send_msg.setWidth(450);
+            }
+            viewHolder.send_user.setText(msg.getUsername());
         }
     }
 

@@ -23,13 +23,6 @@
         <activity android:name=".view.ChatActivity"
                   android:label="@string/chatRoom"
                   android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".view.RegisterActivity"
-                  android:label="@string/registration"
-                  android:parentActivityName=".MainActivity"
-                  android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".view.ForgetActivity"
-                  android:label="@string/forget"
-                  android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,8 +16,14 @@ import com.example.chatroom.R;
 import com.example.chatroom.adapter.Msg;
 import com.example.chatroom.adapter.MyAdapter;
 import com.example.chatroom.beans.UserBean;
-import com.example.chatroom.utils.ClientThread;
+import com.example.chatroom.thread.ReadThread;
+import com.example.chatroom.thread.SendThread;
+import com.example.chatroom.utils.ConstantUtil;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +33,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
     private List<Msg> msgList = new ArrayList<>();
     private MyAdapter adapter;
     private RecyclerView recyclerView;
-    private Handler handler;
-    private ClientThread clientThread;
+    private Socket socket;
+    private PrintWriter printWriter;
+    private BufferedReader bufferedReader;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +55,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
         send = findViewById(R.id.send);
         send_msg = findViewById(R.id.send_msg);
         send.setOnClickListener(this);
+        conn();
     }
     private void initAdapter(){
         recyclerView = findViewById(R.id.recycler_view);
@@ -58,45 +66,70 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 
     }
     private void initMsg(){
-        handler = new Handler(Looper.myLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == 0x123) {
-                    String[] mss = msg.obj.toString().split(",");
-                    Msg msg1 = new Msg(mss[0],mss[1], Msg.TYPE_RECEIVED);
-                    msgList.add(msg1);
-                    adapter.notifyItemInserted(msgList.size() - 1);
-                    recyclerView.scrollToPosition(msgList.size() - 1);
-                }
-            }
-        };
-        clientThread = new ClientThread(handler);
-        new Thread(clientThread).start();
+
     }
     @Override
     protected int getContentViewId() {
         return R.layout.chat_lay;
     }
 
+    public void conn(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    socket = new Socket(ConstantUtil.ADDRESS, ConstantUtil.CHAT_PORT);
+                    printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF-8"),true);
+                    bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
+                    new ReadThread(bufferedReader,rec).start();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.send:
-                String s = send_msg.getText().toString();
-                if (!s.equals("") && s != null) {
-                    Msg msg = new Msg(UserBean.getInstance().getNickname(),s, Msg.TYPE_SEND);
-                    msgList.add(msg);
-                    Message message = new Message();
-                    message.what = 0x345;
-                    message.obj = UserBean.getInstance().getNickname()+","+s;
-                    clientThread.receiveHandler.sendMessage(message);
+                JSONObject content = new JSONObject();
+                if(!send_msg.getText().toString().equals("")){
+                    try {
+                        content.put("username",UserBean.getInstance().getUsername());
+                        content.put("content",send_msg.getText().toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    new SendThread(printWriter,content.toString()).start();
+                    Msg msg1 = new Msg(UserBean.getInstance().getUsername(),send_msg.getText().toString(), Msg.TYPE_SEND);
+                    msgList.add(msg1);
                     adapter.notifyItemInserted(msgList.size() - 1);
                     recyclerView.scrollToPosition(msgList.size() - 1);
                     send_msg.setText("");
                 }
                 break;
+            default:break;
         }
     }
 
-
+    Handler rec = new Handler(Looper.myLooper()){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x123) {
+                String username = null,content = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(msg.obj.toString());
+                    Log.d("TAG", "msg: "+jsonObject);
+                    username = jsonObject.getString("username");
+                    content = jsonObject.getString("content");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Msg msg1 = new Msg(username,content, Msg.TYPE_RECEIVED);
+                msgList.add(msg1);
+                adapter.notifyItemInserted(msgList.size() - 1);
+                recyclerView.scrollToPosition(msgList.size() - 1);
+            }
+        }
+    };
 }
