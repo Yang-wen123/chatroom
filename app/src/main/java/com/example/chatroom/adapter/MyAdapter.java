@@ -53,18 +53,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             viewHolder.receive_layout.setVisibility(View.VISIBLE);
             viewHolder.send_layout.setVisibility(View.GONE);
             viewHolder.receive_msg.setText(msg.getContent());
+            viewHolder.receive_msg.setTextIsSelectable(true);
             Log.d("width", "onBindViewHolder: "+viewHolder.receive_msg.getText().length());
-            if(viewHolder.receive_msg.getText().length()>20){
-                viewHolder.receive_msg.setWidth(450);
+            if(viewHolder.receive_msg.getText().length()>28){
+                viewHolder.receive_msg.setWidth(600);
             }
             viewHolder.receive_user.setText(msg.getUsername());
         } else if (msg.getType() == ConstantUtil.TYPE_SEND) {
             viewHolder.send_layout.setVisibility(View.VISIBLE);
             viewHolder.receive_layout.setVisibility(View.GONE);
             viewHolder.send_msg.setText(msg.getContent());
+            viewHolder.send_msg.setTextIsSelectable(true);
             Log.d("width", "onBindViewHolder: "+viewHolder.send_msg.getText().length());
-            if(viewHolder.send_msg.getText().length()>20){
-                viewHolder.send_msg.setWidth(450);
+            if(viewHolder.send_msg.getText().length()>28){
+                viewHolder.send_msg.setWidth(600);
             }
             viewHolder.send_user.setText(msg.getUsername());
         }
