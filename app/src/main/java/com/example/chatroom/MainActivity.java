@@ -67,11 +67,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 System.exit(0);
                 break;
             case R.id.token:
-
-
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

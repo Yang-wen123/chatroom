@@ -7,7 +7,7 @@
     <string name="register">register</string>
     <string name="token">token</string>
     <!--   注册用 -->
-    <string name="registration">注册用户</string>
+    <string name="registration">registration</string>
     <string name="registration_nickname">请输入昵称</string>
     <string name="registration_username">username</string>
     <string name="registration_password">password</string>
@@ -18,10 +18,10 @@
     <string name="please_password">password</string>
     <string name="enter">enter</string>
     <!--忘记密码-->
-    <string name="forget">忘记密码</string>
+    <string name="forget">forget</string>
     <string name="forget_username">请输入账户名</string>
     <string name="search_password">点击查看密码</string>
     <!--聊天-->
-    <string name="chatRoom">聊天室</string>
+    <string name="chatRoom">chatRoom</string>
     <string name="send">发送</string>
 </resources>
