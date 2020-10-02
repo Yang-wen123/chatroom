@@ -7,11 +7,8 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import com.example.chatroom.adapter.Msg;
 import com.example.chatroom.beans.UserBean;
 import com.example.chatroom.thread.LoginThread;
-import com.example.chatroom.thread.ReadThread;
-import com.example.chatroom.thread.SendThread;
 import com.example.chatroom.utils.ConstantUtil;
 import com.example.chatroom.view.ChatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,7 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -65,11 +61,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(0);
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+                break;
+            case R.id.token:
+
+
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -118,9 +120,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     code = jsonObject.getInt("code");
                     switch (code){
                         case 200:
+                            showToast(result);
                             UserBean.getInstance().setUsername(username);
                             IntentActivity(MainActivity.this,ChatActivity.class);
-                            showToast(result);
                             break;
                         case 202:
                             showToast(result);

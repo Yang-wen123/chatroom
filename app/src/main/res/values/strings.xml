@@ -5,7 +5,7 @@
     <string name="password">password</string>
     <string name="login">chat</string>
     <string name="register">register</string>
-
+    <string name="token">token</string>
     <!--   注册用 -->
     <string name="registration">注册用户</string>
     <string name="registration_nickname">请输入昵称</string>

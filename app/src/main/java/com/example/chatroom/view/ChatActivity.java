@@ -1,14 +1,12 @@
 package com.example.chatroom.view;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+import android.os.*;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatroom.BaseActivity;
@@ -23,7 +21,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
         send = findViewById(R.id.send);
         send_msg = findViewById(R.id.send_msg);
         send.setOnClickListener(this);
-        conn();
+
     }
     private void initAdapter(){
         recyclerView = findViewById(R.id.recycler_view);
@@ -66,7 +66,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 
     }
     private void initMsg(){
-
+        conn();
     }
     @Override
     protected int getContentViewId() {
@@ -75,24 +75,31 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener {
 
     public void conn(){
         new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void run() {
                 try {
+                    Log.d("TAG", "coon");
                     socket = new Socket(ConstantUtil.ADDRESS, ConstantUtil.CHAT_PORT);
-                    printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF-8"),true);
-                    bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
+                    printWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8),true);
+                    bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                     new ReadThread(bufferedReader,rec).start();
                 }catch (IOException e){
                     e.printStackTrace();
                 }
             }
         }).start();
+
     }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.send:
+                if(ReadThread.isBreak){
+                    conn();
+                }
                 JSONObject content = new JSONObject();
+                Log.d("TAG", "content "+send_msg.getText().toString());
                 if(!send_msg.getText().toString().equals("")){
                     try {
                         content.put("username",UserBean.getInstance().getUsername());

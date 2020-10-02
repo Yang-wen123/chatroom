@@ -19,11 +19,11 @@
                 android:layout_height="50dp">
         </TextView>
         <TextView
+                android:background="@drawable/chat_bubble"
                 android:id="@+id/receive_msg"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark">
+                android:layout_height="wrap_content">
         </TextView>
     </LinearLayout>
     <LinearLayout
@@ -37,7 +37,7 @@
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark">
+                android:background="@drawable/chat_bubble">
         </TextView>
         <TextView
                 android:layout_gravity="center"
